@@ -139,6 +139,79 @@ video {
 
 .fallback { margin-top: 12px; }
 
+figure { margin: 0; }
+
+@media (max-width: 480px) {
+  .chart-figure { margin: 0 -10px; }
+}
+
+.chart-note { margin: 0 0 14px; }
+
+.chart-img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  cursor: zoom-in;
+  -webkit-touch-callout: default;
+}
+
+.chart-hint {
+  margin: 10px 0 0;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  opacity: 0.8;
+}
+
+.lightbox {
+  width: 100vw;
+  max-width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  max-height: 100dvh;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: rgba(46, 40, 34, 0.92);
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+.lightbox::backdrop { background: rgba(46, 40, 34, 0.92); }
+.lightbox[open] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lightbox img {
+  display: block;
+  max-width: calc(100vw - 24px);
+  max-height: calc(100dvh - 88px);
+  width: auto;
+  height: auto;
+  margin: 64px 12px 24px;
+  border-radius: 6px;
+  background: var(--sheet);
+  -webkit-touch-callout: default;
+}
+.lightbox-close {
+  position: fixed;
+  top: calc(12px + env(safe-area-inset-top));
+  right: 12px;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(255, 253, 248, 0.35);
+  border-radius: 50%;
+  background: rgba(63, 54, 46, 0.6);
+  color: var(--sheet);
+  font: inherit;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+}
+html.lightbox-lock, html.lightbox-lock body { overflow: hidden; }
+
 </style>
 </head>
 <body>
@@ -147,6 +220,7 @@ video {
   <h1>回春明点叩问</h1>
   <nav aria-label="练习段落">
     <a href="#intro">介绍</a>
+    <a href="#body-chart">对照</a>
     <a href="#film">视频</a>
     <a href="#pass-1">一遍</a>
     <a href="#pass-2">二遍</a>
@@ -156,6 +230,17 @@ video {
   <section id="intro">
     <div class="sheet">
       <p>回春明点叩问是一种从头面部到背部全身的触摸拍打疗法，主要用于改善血液循环、释放隐藏的情绪以及促进身体的放松和情绪的清理。这种疗法通过刺激末梢神经和特定部位的肌肉，帮助提升身体的自我修复能力和情绪的平衡。在工作坊中，参与者会学习如何运用这些技巧来自我疗愈和释放压力。</p>
+    </div>
+  </section>
+
+  <section id="body-chart">
+    <h2>身体疼痛与情绪对照</h2>
+    <div class="sheet">
+      <p class="chart-note">叩问的时候，可以对照这张图看看：身体哪里酸、哪里堵、哪里不舒服，也许正连着某种一直压着没说出口的情绪。拍到那里时多停一会儿，轻轻问问自己。仅作自我觉察参考。</p>
+      <figure class="chart-figure">
+        <img class="chart-img" id="body-chart-img" src="images/body-emotion.jpg" width="720" height="856" loading="lazy" decoding="async" tabindex="0" role="button" aria-haspopup="dialog" aria-label="放大查看：你身体部位的疼痛和哪些情绪有关" alt="「你身体部位的疼痛和哪些情绪有关」示意图。人体躯干上从上到下标着：咽喉区（自我表达问题）、心脏中心（悲伤、哀愁、失去）、恐惧中心（恐惧和恐惧症）、旧创伤中心（家庭性问题）、生存中心（感觉活不过生存危机）。左侧标着外部压力（肩部，负担与责任）、愤怒中心、支援中心（缺乏资金支持）、拒绝中心（被抛弃）；右侧标着内部压力（肩部，负担与责任）、内疚/羞耻/无价值、支援中心（缺乏情感支持）、背叛中心。">
+        <figcaption class="chart-hint">点图可放大查看，长按可保存。</figcaption>
+      </figure>
     </div>
   </section>
 
@@ -192,10 +277,45 @@ video {
     </div>
   </section>
 </main>
+<dialog class="lightbox" id="lightbox" aria-label="放大查看：你身体部位的疼痛和哪些情绪有关">
+  <button type="button" class="lightbox-close" id="lightbox-close" aria-label="关闭">×</button>
+  <img src="images/body-emotion.jpg" width="720" height="856" alt="「你身体部位的疼痛和哪些情绪有关」示意图。人体躯干上从上到下标着：咽喉区（自我表达问题）、心脏中心（悲伤、哀愁、失去）、恐惧中心（恐惧和恐惧症）、旧创伤中心（家庭性问题）、生存中心（感觉活不过生存危机）。左侧标着外部压力（肩部，负担与责任）、愤怒中心、支援中心（缺乏资金支持）、拒绝中心（被抛弃）；右侧标着内部压力（肩部，负担与责任）、内疚/羞耻/无价值、支援中心（缺乏情感支持）、背叛中心。">
+</dialog>
 <script>
 document.getElementById("practice").addEventListener("error", function () {
   document.getElementById("video-fallback").hidden = false;
 });
+
+(function () {
+  var trigger = document.getElementById("body-chart-img");
+  var box = document.getElementById("lightbox");
+  if (!trigger || !box) return;
+  var root = document.documentElement;
+  function open() {
+    if (box.open) return;
+    if (typeof box.showModal === "function") box.showModal(); else box.setAttribute("open", "");
+    root.classList.add("lightbox-lock");
+  }
+  function close() {
+    if (typeof box.close === "function" && box.open) box.close(); else box.removeAttribute("open");
+    root.classList.remove("lightbox-lock");
+  }
+  trigger.addEventListener("click", open);
+  trigger.addEventListener("keydown", function (e) {
+    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); }
+  });
+  document.getElementById("lightbox-close").addEventListener("click", close);
+  box.addEventListener("click", function (e) {
+    if (e.target.tagName !== "IMG") close();
+  });
+  box.addEventListener("close", function () {
+    root.classList.remove("lightbox-lock");
+    trigger.focus({ preventScroll: true });
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && box.open) close();
+  });
+})();
 </script>
 </body>
 </html>
